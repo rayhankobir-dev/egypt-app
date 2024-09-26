@@ -12,7 +12,7 @@ type UsePostResponse<T> = {
   postData: (body: any) => Promise<void>;
 };
 
-const usePost = <T>(url: string): UsePostResponse<T> => {
+const usePost = <T,>(url: string): UsePostResponse<T> => {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);

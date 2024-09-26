@@ -1,10 +1,5 @@
-"use client";
-import dynamic from "next/dynamic";
+import JoditEditor from "jodit-react";
 import { useMemo, useRef, useState } from "react";
-
-const JoditEditor = dynamic(() => import("jodit-react"), {
-  ssr: false,
-});
 
 interface RichTextEditorProps {
   initialHtmlString?: string;

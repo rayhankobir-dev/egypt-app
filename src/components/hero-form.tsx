@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-"use client";
 import { useEffect, useState } from "react";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { useFormik } from "formik";
 import { Image as ImageIcon } from "lucide-react";
 import * as Yup from "yup";
-import Image from "next/image";
 
 interface Props {
   initialValues?: {
@@ -112,7 +110,7 @@ export default function HeroForm({ initialValues }: Props) {
         )}
         <div className="flex items-center gap-2 py-1.5">
           {imagePreview ? (
-            <Image
+            <img
               className="h-12 w-14 object-fill aspect-square p-1"
               src={imagePreview}
               height={120}
