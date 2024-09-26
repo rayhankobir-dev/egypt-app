@@ -1,11 +1,7 @@
 import { lazy, Suspense } from "react";
 import RootLayout from "@/layouts/root";
-import { Outlet, Navigate, useRoutes } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
-import Dashboard from "@/pages/dashboard";
-import Spinner from "@/components/spinner";
-import AdminContacts from "@/pages/dashboard/contacts";
-import AdminGallery from "@/pages/dashboard/gallery";
+import { Outlet, Navigate, useRoutes } from "react-router-dom";
 
 export const HomePage = lazy(() => import("@/pages/home"));
 export const LoginPage = lazy(() => import("@/pages/login"));
@@ -13,7 +9,11 @@ export const CitiesPage = lazy(() => import("@/pages/cities"));
 export const CitysSinglePage = lazy(() => import("@/pages/city"));
 export const GalleryPage = lazy(() => import("@/pages/gallery"));
 export const ContactPage = lazy(() => import("@/pages/contact"));
+export const AdminGallery = lazy(() => import("@/pages/dashboard/gallery"));
+export const AdminContacts = lazy(() => import("@/pages/dashboard/contacts"));
+export const DashboardPage = lazy(() => import("@/pages/dashboard"));
 export const Page404 = lazy(() => import("@/pages/page-not-found"));
+export const Spinner = lazy(() => import("@/components/spinner"));
 
 // ----------------------------------------------------------------------
 
@@ -84,7 +84,7 @@ const Router = () => {
       children: [
         {
           index: true,
-          element: <Dashboard />,
+          element: <DashboardPage />,
         },
         {
           path: "contacts",
