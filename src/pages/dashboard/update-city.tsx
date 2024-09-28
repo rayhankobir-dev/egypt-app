@@ -1,26 +1,48 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useState } from "react";
-import usePost from "@/hooks/use-post";
 import { Button } from "@/components/ui/button";
 import RichTextEditor from "@/components/richtext-editor";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import usePost from "@/hooks/use-post";
+import useGet from "@/hooks/use-get";
+import { useParams } from "react-router-dom"; // Assuming React Router
+import Spinner from "@/components/spinner";
 
-const AddCity = () => {
+const UpdateCity = () => {
+  const { slug } = useParams();
   const [description, setDescription] = useState("");
-  const { postData } = usePost<any>("/cities");
+  const [image, setImage] = useState<File | null>(null);
+
+  // Fetch city details
+  const { data: cityData, isLoading, isError } = useGet<any>(`/cities/${slug}`);
+  const { postData } = usePost<any>(`/cities/${slug}`);
+
+  useEffect(() => {
+    if (cityData) {
+      setDescription(cityData.description || "");
+    }
+  }, [cityData]);
+
+  // Debugging: Log cityData and initialValues
+  useEffect(() => {
+    console.log("cityData:", cityData);
+  }, [cityData]);
+
+  if (isLoading) return <Spinner />;
+  if (isError) return <p>Error fetching city data</p>;
 
   const initialValues = {
-    name: "",
-    location: "",
+    name: cityData?.name || "",
+    location: cityData?.location || "",
     thumbnail: null,
-    description: "",
+    description: cityData?.description || "",
   };
 
   const validationSchema = Yup.object({
     name: Yup.string().required("City name is required"),
     location: Yup.string().required("Location is required"),
-    thumbnail: Yup.mixed().required("A thumbnail image is required"),
+    thumbnail: Yup.mixed().nullable(),
     description: Yup.string().required("Description is required"),
   });
 
@@ -29,14 +51,17 @@ const AddCity = () => {
     formData.append("name", values.name);
     formData.append("location", values.location);
     formData.append("description", description);
-    if (values.thumbnail && values.thumbnail instanceof File) {
-      formData.append("thumbnail", values.thumbnail);
+
+    if (image) {
+      formData.append("thumbnail", image);
     }
+
     await postData(formData, true);
   };
 
   return (
     <Formik
+      enableReinitialize
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values) => {
@@ -45,6 +70,7 @@ const AddCity = () => {
     >
       {({ setFieldValue, values }) => (
         <Form className="space-y-5">
+          {/* City Name Field */}
           <div>
             <label htmlFor="name" className="block text-sm font-medium">
               City Name
@@ -92,7 +118,8 @@ const AddCity = () => {
               onChange={(event) => {
                 const file = event.target.files?.[0];
                 if (file) {
-                  setFieldValue("thumbnail", file);
+                  setImage(file);
+                  setFieldValue("thumbnail", file); // Pass the file to Formik's state
                 }
               }}
             />
@@ -123,11 +150,11 @@ const AddCity = () => {
           </div>
 
           {/* Submit Button */}
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Update City</Button>
         </Form>
       )}
     </Formik>
   );
 };
 
-export default AddCity;
+export default UpdateCity;

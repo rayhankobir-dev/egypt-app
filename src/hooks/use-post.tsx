@@ -9,7 +9,7 @@ type UsePostResponse<T> = {
   isSuccess: boolean;
   isError: boolean;
   error: AxiosError | null;
-  postData: (body: any) => Promise<void>;
+  postData: (body: any, isMultipart?: boolean) => Promise<void>;
 };
 
 const usePost = <T,>(url: string): UsePostResponse<T> => {
@@ -19,13 +19,17 @@ const usePost = <T,>(url: string): UsePostResponse<T> => {
   const [isError, setIsError] = useState<boolean>(false);
   const [error, setError] = useState<AxiosError | null>(null);
 
-  const postData = async (body: any) => {
+  const postData = async (body: any, isMultipart: boolean = true) => {
     setIsLoading(true);
     setIsError(false);
     setError(null);
 
     try {
-      const response = await axiosInstance.post<T>(url, body);
+      const headers = isMultipart
+        ? { "Content-Type": "multipart/form-data" }
+        : { "Content-Type": "application/json" };
+
+      const response = await axiosInstance.post<T>(url, body, { headers });
       setData(response.data);
       setIsSuccess(true);
     } catch (err) {

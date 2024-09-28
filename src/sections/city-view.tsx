@@ -7,21 +7,21 @@ import { Skeleton } from "@/components/ui/skeleton";
 function CityView({ city }: { city: City }) {
   return (
     <section className="flex flex-col gap-2.5">
-      <div className="py-5">
-        <h1 className="font-bold text-3xl">{city.name}</h1>
-        <h2 className="flex items-center gap-1.5 font-normal text-lg">
-          <Map /> {city.location}
-        </h2>
-      </div>
-
       <div className="w-full flex">
         <img
-          className="w-full aspect-[9/7] md:aspect-[16/9] lg:aspect-[16/7] object-center rounded-xl overflow-hidden"
+          className="w-full aspect-[9/7] md:aspect-[16/9] lg:aspect-[16/6] object-top object-cover rounded-xl overflow-hidden"
           src={API_URL + city.thumbnail}
           height={1024}
           width={1024}
           alt={city.name}
         />
+      </div>
+
+      <div className="py-5">
+        <h1 className="font-bold text-3xl">{city.name}</h1>
+        <h2 className="flex items-center gap-1.5 font-normal text-lg">
+          <Map /> {city.location}
+        </h2>
       </div>
 
       <ContentSection title="Description" content={city.description} />

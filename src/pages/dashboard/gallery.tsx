@@ -5,11 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Image, Trash2 } from "lucide-react";
 import useGet from "@/hooks/use-get";
 import axios from "axios";
+import { API_URL } from "@/api";
+import usePost from "@/hooks/use-post";
 
 function AdminGallery() {
   const [images, setImages] = useState<any[]>([]);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const { data, isLoading, isError } = useGet<any>("/gallery");
+
+  const { postData, data: uploadData } = usePost<any>("/gallery");
 
   useEffect(() => {
     if (data && data.data) {
@@ -23,6 +27,7 @@ function AdminGallery() {
       const file = acceptedFiles[0];
       if (file) {
         const reader = new FileReader();
+
         reader.onloadend = () => {
           if (reader.result) {
             setPreviewImage(reader.result as string);
@@ -36,16 +41,12 @@ function AdminGallery() {
   const handleUpload = async (file: File) => {
     const formData = new FormData();
     formData.append("image", file);
+    await postData(formData, true);
 
     try {
-      const response = await axios.post("/api/upload-image", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      const uploadedImage = response.data.image;
-      setImages((prevImages) => [...prevImages, uploadedImage]); // Update images list
-      setPreviewImage(null); // Clear preview after upload
+      const uploadedImage = uploadData.data.image;
+      setImages((prevImages) => [...prevImages, uploadedImage]);
+      setPreviewImage(null);
     } catch (error) {
       console.error("Error uploading image:", error);
     }
@@ -53,7 +54,7 @@ function AdminGallery() {
 
   const deleteImage = async (id: string) => {
     try {
-      await axios.delete(`/api/delete-image/${id}`);
+      await axios.delete(`/api/gallery/${id}`);
       setImages((prevImages) => prevImages.filter((image) => image._id !== id));
     } catch (error) {
       console.error("Error deleting image:", error);
@@ -108,7 +109,7 @@ function AdminGallery() {
               <Trash2 />
             </Button>
             <img
-              src={image.imageUrl}
+              src={API_URL + image.imageUrl}
               alt="Uploaded"
               className="w-full h-auto object-cover"
             />

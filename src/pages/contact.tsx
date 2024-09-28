@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import ContactForm from "@/components/contact-form";
+import { Check, Mail, Phone } from "lucide-react";
 
 export default function ContactPage() {
   return (
@@ -26,100 +27,51 @@ export default function ContactPage() {
             <div className="hidden md:block">
               <div className="space-y-16 pb-20 lg:pb-0">
                 <div className="space-y-6">
-                  <div className="mt-16 flex overflow-hidden">
-                    <span className="relative flex shrink-0 overflow-hidden rounded-full size-11">
-                      <img
-                        className="aspect-square h-full w-full"
-                        src="https://www.shadcnblocks.com/images/block/avatar-1.webp"
-                      />
-                    </span>
-                    <span className="relative flex shrink-0 overflow-hidden rounded-full -ml-4 size-11">
-                      <img
-                        className="aspect-square h-full w-full"
-                        src="https://www.shadcnblocks.com/images/block/avatar-3.webp"
-                      />
-                    </span>
-                    <span className="relative flex shrink-0 overflow-hidden rounded-full -ml-4 size-11">
-                      <img
-                        className="aspect-square h-full w-full"
-                        src="https://www.shadcnblocks.com/images/block/avatar-2.webp"
-                      />
-                    </span>
-                  </div>
                   <div className="space-y-4">
                     <p className="text-sm font-semibold">
                       What you can expect:
                     </p>
                     <div className="flex items-center space-x-2.5">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-check size-5 shrink-0 text-muted-foreground"
-                      >
-                        <path d="M20 6 9 17l-5-5"></path>
-                      </svg>
+                      <Check size={18} />
                       <p className="text-sm">
                         Detailed product presentation tailored to you
                       </p>
                     </div>
                     <div className="flex items-center space-x-2.5">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-check size-5 shrink-0 text-muted-foreground"
-                      >
-                        <path d="M20 6 9 17l-5-5"></path>
-                      </svg>
+                      <Check size={18} />
                       <p className="text-sm">
                         Consulting on your messaging strategy
                       </p>
                     </div>
                     <div className="flex items-center space-x-2.5">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-check size-5 shrink-0 text-muted-foreground"
-                      >
-                        <path d="M20 6 9 17l-5-5"></path>
-                      </svg>
+                      <Check size={18} />
+                      <p className="text-sm">
+                        Answers to all the questions you have
+                      </p>
+                    </div>
+
+                    <div className="flex items-center space-x-2.5">
+                      <Check size={18} />
+                      <p className="text-sm">
+                        Answers to all the questions you have
+                      </p>
+                    </div>
+
+                    <div className="flex items-center space-x-2.5">
+                      <Check size={18} />
                       <p className="text-sm">
                         Answers to all the questions you have
                       </p>
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center space-x-12">
-                  <img
-                    src="https://www.shadcnblocks.com/images/block/logos/astro.svg"
-                    alt="placeholder"
-                    className="h-6"
-                  />
-                  <img
-                    src="https://www.shadcnblocks.com/images/block/logos/shadcn-ui.svg"
-                    alt="placeholder"
-                    className="h-6"
-                  />
+                <div className="flex items-center space-x-5">
+                  <div className="inline-flex items-center gap-2 border px-2.5 py-4 rounded-lg bg-gray-100">
+                    <Phone size={18} /> +1 (555) 123-4567
+                  </div>
+                  <div className="inline-flex items-center gap-2 border px-2.5 py-4 rounded-lg bg-green-50">
+                    <Mail size={18} /> 0y6h4@example.com
+                  </div>
                 </div>
               </div>
             </div>

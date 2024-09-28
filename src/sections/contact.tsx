@@ -51,7 +51,7 @@ export default function ContactSection() {
                       fill="none"
                       stroke="currentColor"
                       stroke-width="2"
-                      stroke-linecap="round"
+                      strokeLinecap="round"
                       strokeLinejoin="round"
                       className="lucide lucide-check size-5 shrink-0 text-muted-foreground"
                     >
@@ -70,7 +70,7 @@ export default function ContactSection() {
                       fill="none"
                       stroke="currentColor"
                       stroke-width="2"
-                      stroke-linecap="round"
+                      strokeLinecap="round"
                       strokeLinejoin="round"
                       className="lucide lucide-check size-5 shrink-0 text-muted-foreground"
                     >
@@ -89,7 +89,7 @@ export default function ContactSection() {
                       fill="none"
                       stroke="currentColor"
                       stroke-width="2"
-                      stroke-linecap="round"
+                      strokeLinecap="round"
                       strokeLinejoin="round"
                       className="lucide lucide-check size-5 shrink-0 text-muted-foreground"
                     >

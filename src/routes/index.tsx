@@ -2,6 +2,10 @@ import { lazy, Suspense } from "react";
 import RootLayout from "@/layouts/root";
 import { useAuth } from "@/hooks/use-auth";
 import { Outlet, Navigate, useRoutes } from "react-router-dom";
+import AddCity from "@/pages/dashboard/add-city";
+import AdminCities from "@/pages/dashboard/cities";
+import UpdateCity from "@/pages/dashboard/update-city";
+import AddSlide from "@/pages/dashboard/add-slide";
 
 export const HomePage = lazy(() => import("@/pages/home"));
 export const LoginPage = lazy(() => import("@/pages/login"));
@@ -97,6 +101,22 @@ const Router = () => {
         {
           path: "gallery",
           element: <AdminGallery />,
+        },
+        {
+          path: "cities",
+          element: <AdminCities />,
+        },
+        {
+          path: "cities/add",
+          element: <AddCity />,
+        },
+        {
+          path: "slide/add",
+          element: <AddSlide />,
+        },
+        {
+          path: "cities/update/:slug",
+          element: <UpdateCity />,
         },
         {
           path: "*",

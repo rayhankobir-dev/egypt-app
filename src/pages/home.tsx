@@ -30,16 +30,18 @@ export default function HomePage() {
   if (isLoading) return <LoadingState />;
   if (isError) return <ErrorState />;
 
-  const { slides, cities } = homeData?.data || {};
+  const { cities, home } = homeData?.data || {};
 
   return (
     <>
-      <HeroSlider slides={slides} />
-      <ContentSection
-        title="History of Egypt"
-        content={homeData.data.home.history}
+      <HeroSlider slides={home.slides} />
+      <ContentSection title="History of Egypt" content={home.history} />
+      <CityCardSlider
+        className="mt-20"
+        title="Top Cities"
+        subTitle=""
+        cities={cities}
       />
-      <CityCardSlider title="Top Cities" subTitle="" cities={cities} />
       <CtaSection />
       <PlanTripSection />
     </>
