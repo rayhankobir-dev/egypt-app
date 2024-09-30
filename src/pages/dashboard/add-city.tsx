@@ -39,11 +39,11 @@ const AddCity = () => {
 
     if (isError) {
       setErrors(formatErrorObject(error));
+    } else {
+      toast.success("City added successfully");
+      setDescription("");
+      resetForm();
     }
-
-    toast.success("City added successfully");
-    resetForm();
-    setDescription("");
   };
 
   return (

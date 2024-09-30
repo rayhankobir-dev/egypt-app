@@ -11,7 +11,7 @@ export default function CityCard({ city }: { city: City }) {
       className="w-full h-full flex flex-col gap-2 hover:opacity-80 duration-300 overflow-hidden"
     >
       <img
-        className="w-full rounded-lg"
+        className="w-full rounded-lg aspect-[16/10] object-cover"
         src={API_URL + city.thumbnail}
         width={300}
         height={300}

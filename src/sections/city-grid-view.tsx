@@ -9,8 +9,11 @@ export default function CityGridView() {
   const { data, isLoading, isError } = useGet<any>("/cities");
 
   return (
-    <Wrapper>
-      <SectionTitle title="Cities" />
+    <Wrapper className="py-5">
+      <SectionTitle
+        title="Cities"
+        description="All cities in egypt you can visit. You should visit these cities. You'll amazed yourself to see these beautiful cities and places."
+      />
       {isLoading || isError ? (
         <GridSkeleton />
       ) : (

@@ -74,7 +74,7 @@ function AdminGallery() {
   if (isLoading) return <Spinner />;
 
   return (
-    <section className="w-fill flex flex-col gap-5">
+    <section className="w-full flex flex-col gap-5">
       <div className="flex flex-col justify-center items-center gap-4 border-dashed border-2 border-gray-300 p-4 text-center rounded-xl">
         <input
           type="file"

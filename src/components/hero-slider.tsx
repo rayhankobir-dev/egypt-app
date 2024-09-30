@@ -44,15 +44,19 @@ export default function HeroSlider({ className, slides }: HeroSliderProps) {
               className="relative aspect-[9/7] md:aspect-[16/9] lg:aspect-[16/7] object-center rounded-xl overflow-hidden"
             >
               <img
-                className="w-full min-h-96"
+                className="w-full min-h-96 aspect-[9/7] md:aspect-[16/9] lg:aspect-[16/7] object-cover"
                 src={API_URL + imageUrl}
                 width={1000}
                 height={600}
                 alt={title}
               />
               <div className="py-5 px-5 w-full absolute bottom-0 space-y-2 bg-gradient-to-b from-transparent to-black text-white">
-                <h1 className="text-4xl font-medium">{title}</h1>
-                <p className="font-light text-sm">{description}</p>
+                <h1 className="font-medium text-2xl md:text-3xl lg:text-4xl line-clamp-2 overflow-hidden">
+                  {title}
+                </h1>
+                <p className="font-light text-sm lg:text-md line-clamp-3 overflow-hidden">
+                  {description}
+                </p>
               </div>
             </SwiperSlide>
           ))}

@@ -19,15 +19,15 @@ export default function AdminSlides({ slides, refetch }: any) {
       accessorKey: "title",
       header: () => <div className="font-medium text-nowrap">Title</div>,
       cell: ({ row }: any) => (
-        <div className="text-nowrap">{row.getValue("title")}</div>
+        <div className="w-72 line-clamp-2">{row.getValue("title")}</div>
       ),
     },
     {
       accessorKey: "description",
-      header: () => <div className="">Description</div>,
+      header: () => <div className="w-72">Description</div>,
 
       cell: ({ row }: any) => (
-        <div className="text-nowrap">{row.getValue("description")}</div>
+        <div className="w-72 line-clamp-2">{row.getValue("description")}</div>
       ),
     },
     {

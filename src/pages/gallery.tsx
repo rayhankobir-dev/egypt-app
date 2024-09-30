@@ -5,7 +5,7 @@ import Gallery, { GallerySkeleton } from "@/components/gallery";
 export default function GalleryPage() {
   const { data, isLoading, isError } = useGet<any>("/gallery");
   return (
-    <section className="flex flex-col gap-7">
+    <section className="flex flex-col gap-7 py-5">
       <div className="max-w-5xl flex flex-col gap-2">
         <h1 className="font-bold text-3xl">Explore Places Gallery</h1>
         <p className="font-light">
@@ -18,7 +18,7 @@ export default function GalleryPage() {
       {isLoading || isError ? (
         <GallerySkeleton />
       ) : (
-        <Gallery images={data?.data.images} />
+        <Gallery images={data?.data.gallery} />
       )}
     </section>
   );
