@@ -1,5 +1,5 @@
 import JoditEditor from "jodit-react";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 
 interface RichTextEditorProps {
   initialHtmlString?: string;
@@ -37,7 +37,6 @@ export default function RichTextEditor({
   onChange,
 }: RichTextEditorProps) {
   const editorRef = useRef(null);
-  const [value, setValue] = useState(initialHtmlString);
 
   const config = useMemo(
     () => ({
@@ -71,14 +70,13 @@ export default function RichTextEditor({
   );
 
   const handleEditorChange = (htmlString: string) => {
-    setValue(htmlString);
     onChange(htmlString);
   };
 
   return (
     <JoditEditor
       ref={editorRef}
-      value={value}
+      value={initialHtmlString}
       config={config}
       onChange={handleEditorChange}
     />

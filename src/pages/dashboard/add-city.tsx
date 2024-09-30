@@ -5,10 +5,13 @@ import usePost from "@/hooks/use-post";
 import { Button } from "@/components/ui/button";
 import RichTextEditor from "@/components/richtext-editor";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import SectionTitle from "@/components/section-title";
+import toast from "react-hot-toast";
+import { formatErrorObject } from "@/lib/utils";
 
 const AddCity = () => {
   const [description, setDescription] = useState("");
-  const { postData } = usePost<any>("/cities");
+  const { postData, isLoading, isError, error } = usePost<any>("/cities");
 
   const initialValues = {
     name: "",
@@ -24,7 +27,7 @@ const AddCity = () => {
     description: Yup.string().required("Description is required"),
   });
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values: any, { resetForm, setErrors }: any) => {
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("location", values.location);
@@ -33,100 +36,113 @@ const AddCity = () => {
       formData.append("thumbnail", values.thumbnail);
     }
     await postData(formData, true);
+
+    if (isError) {
+      setErrors(formatErrorObject(error));
+    }
+
+    toast.success("City added successfully");
+    resetForm();
+    setDescription("");
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={(values) => {
-        handleSubmit({ ...values, description });
-      }}
-    >
-      {({ setFieldValue, values }) => (
-        <Form className="space-y-5">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium">
-              City Name
-            </label>
-            <Field
-              name="name"
-              type="text"
-              className="w-full border p-2 rounded-md"
-            />
-            <ErrorMessage
-              name="name"
-              component="div"
-              className="text-red-500 text-sm"
-            />
-          </div>
+    <section className="w-full flex flex-col gap-5 py-5">
+      <SectionTitle title="Add New City" />
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={async (values, { resetForm, setErrors }) => {
+          await handleSubmit(values, { resetForm, setErrors });
+        }}
+      >
+        {({ setFieldValue, values }) => (
+          <Form className="space-y-5">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium">
+                City Name
+              </label>
+              <Field
+                name="name"
+                type="text"
+                className="w-full border p-2 rounded-md"
+              />
+              <ErrorMessage
+                name="name"
+                component="div"
+                className="text-red-500 text-sm"
+              />
+            </div>
 
-          {/* Location Field */}
-          <div>
-            <label htmlFor="location" className="block text-sm font-medium">
-              Location
-            </label>
-            <Field
-              name="location"
-              type="text"
-              className="w-full border p-2 rounded-md"
-            />
-            <ErrorMessage
-              name="location"
-              component="div"
-              className="text-red-500 text-sm"
-            />
-          </div>
+            {/* Location Field */}
+            <div>
+              <label htmlFor="location" className="block text-sm font-medium">
+                Location
+              </label>
+              <Field
+                name="location"
+                type="text"
+                className="w-full border p-2 rounded-md"
+              />
+              <ErrorMessage
+                name="location"
+                component="div"
+                className="text-red-500 text-sm"
+              />
+            </div>
 
-          {/* Thumbnail Upload */}
-          <div>
-            <label htmlFor="thumbnail" className="block text-sm font-medium">
-              Thumbnail
-            </label>
-            <input
-              id="thumbnail"
-              name="thumbnail"
-              type="file"
-              accept="image/*"
-              className="w-full"
-              onChange={(event) => {
-                const file = event.target.files?.[0];
-                if (file) {
-                  setFieldValue("thumbnail", file);
-                }
-              }}
-            />
-            <ErrorMessage
-              name="thumbnail"
-              component="div"
-              className="text-red-500 text-sm"
-            />
-          </div>
+            {/* Thumbnail Upload */}
+            <div>
+              <label htmlFor="thumbnail" className="block text-sm font-medium">
+                Thumbnail
+              </label>
+              <input
+                id="thumbnail"
+                name="thumbnail"
+                type="file"
+                accept="image/*"
+                className="w-full"
+                onChange={(event) => {
+                  const file = event.target.files?.[0];
+                  if (file) {
+                    setFieldValue("thumbnail", file);
+                  }
+                }}
+              />
+              <ErrorMessage
+                name="thumbnail"
+                component="div"
+                className="text-red-500 text-sm"
+              />
+            </div>
 
-          {/* Description (Rich Text Editor) */}
-          <div>
-            <label htmlFor="description" className="block text-sm font-medium">
-              Description
-            </label>
-            <RichTextEditor
-              initialHtmlString={values.description}
-              onChange={(htmlString) => {
-                setDescription(htmlString);
-                setFieldValue("description", htmlString); // Also set description in Formik's state
-              }}
-            />
-            <ErrorMessage
-              name="description"
-              component="div"
-              className="text-red-500 text-sm"
-            />
-          </div>
-
-          {/* Submit Button */}
-          <Button type="submit">Submit</Button>
-        </Form>
-      )}
-    </Formik>
+            <div>
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium"
+              >
+                Description
+              </label>
+              <RichTextEditor
+                initialHtmlString={values.description}
+                onChange={(htmlString) => {
+                  setDescription(htmlString);
+                  setFieldValue("description", htmlString);
+                }}
+              />
+              <ErrorMessage
+                name="description"
+                component="div"
+                className="text-red-500 text-sm"
+              />
+            </div>
+            <Button disabled={isLoading} type="submit">
+              {isLoading ? "Submitting..." : "Create & Save"}
+            </Button>
+          </Form>
+        )}
+      </Formik>
+    </section>
   );
 };
 

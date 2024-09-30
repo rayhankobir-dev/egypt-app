@@ -6,6 +6,7 @@ import AddCity from "@/pages/dashboard/add-city";
 import AdminCities from "@/pages/dashboard/cities";
 import UpdateCity from "@/pages/dashboard/update-city";
 import AddSlide from "@/pages/dashboard/add-slide";
+import DashboardLayout from "@/layouts/dashboard";
 
 export const HomePage = lazy(() => import("@/pages/home"));
 export const LoginPage = lazy(() => import("@/pages/login"));
@@ -78,11 +79,11 @@ const Router = () => {
       path: "admin",
       element: (
         <ProtectedRoute>
-          <RootLayout>
+          <DashboardLayout>
             <Suspense fallback={<Spinner />}>
               <Outlet />
             </Suspense>
-          </RootLayout>
+          </DashboardLayout>
         </ProtectedRoute>
       ),
       children: [

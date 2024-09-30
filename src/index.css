@@ -7,3 +7,18 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Global CSS or Component-Specific CSS */
+.jodit-wysiwyg ul {
+  list-style-type: disc !important;
+  margin-left: 20px !important;
+}
+
+.jodit-wysiwyg ol {
+  list-style-type: decimal !important;
+  margin-left: 20px !important;
+}
+
+.jodit-wysiwyg li {
+  padding-left: 5px !important;
+}

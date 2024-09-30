@@ -1,19 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
-import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { Image, Trash2 } from "lucide-react";
 import useGet from "@/hooks/use-get";
-import axios from "axios";
-import { API_URL } from "@/api";
+import axiosInstance, { API_URL } from "@/api";
 import usePost from "@/hooks/use-post";
+import toast from "react-hot-toast";
+import Spinner from "@/components/spinner";
 
 function AdminGallery() {
   const [images, setImages] = useState<any[]>([]);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const { data, isLoading, isError } = useGet<any>("/gallery");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const { postData, data: uploadData } = usePost<any>("/gallery");
+  const { data, isLoading } = useGet<any>("/gallery");
+  const {
+    data: uploadData,
+    isLoading: isUploading,
+    postData,
+  } = usePost<any>("/gallery");
 
   useEffect(() => {
     if (data && data.data) {
@@ -21,58 +26,64 @@ function AdminGallery() {
     }
   }, [data, isLoading]);
 
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: { "image/*": [] },
-    onDrop: (acceptedFiles) => {
-      const file = acceptedFiles[0];
-      if (file) {
-        const reader = new FileReader();
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      const reader = new FileReader();
 
-        reader.onloadend = () => {
-          if (reader.result) {
-            setPreviewImage(reader.result as string);
-          }
-        };
-        reader.readAsDataURL(file);
-      }
-    },
-  });
-
-  const handleUpload = async (file: File) => {
-    const formData = new FormData();
-    formData.append("image", file);
-    await postData(formData, true);
-
-    try {
-      const uploadedImage = uploadData.data.image;
-      setImages((prevImages) => [...prevImages, uploadedImage]);
-      setPreviewImage(null);
-    } catch (error) {
-      console.error("Error uploading image:", error);
+      reader.onloadend = () => {
+        if (reader.result) {
+          setPreviewImage(reader.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
     }
+  };
+
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      toast.error("Please select an image to upload.");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    toast.promise(postData(formData, true), {
+      loading: "Uploading image...",
+      success: () => {
+        const uploadedImage = uploadData.data.gallery;
+        setImages((prevImages) => [...prevImages, uploadedImage]);
+        setPreviewImage(null);
+        setSelectedFile(null);
+        return "Image uploaded successfully.";
+      },
+      error: "Failed to upload image. Please try again.",
+    });
   };
 
   const deleteImage = async (id: string) => {
     try {
-      await axios.delete(`/api/gallery/${id}`);
+      await axiosInstance.delete(`/gallery/${id}`);
       setImages((prevImages) => prevImages.filter((image) => image._id !== id));
     } catch (error) {
       console.error("Error deleting image:", error);
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error loading images.</p>;
+  if (isLoading) return <Spinner />;
 
   return (
-    <section className="flex flex-col gap-5">
-      <div
-        {...getRootProps()}
-        className="flex flex-col justify-center items-center gap-4 border-dashed border-2 border-gray-300 p-4 text-center rounded-xl"
-      >
-        <input {...getInputProps()} />
+    <section className="w-fill flex flex-col gap-5">
+      <div className="flex flex-col justify-center items-center gap-4 border-dashed border-2 border-gray-300 p-4 text-center rounded-xl">
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="w-full"
+        />
         <Image size={40} />
-        <p>Upload an image to the Gallery, or drag and drop it here.</p>
+        <p>Upload an image to the Gallery.</p>
 
         {previewImage && (
           <div className="relative">
@@ -82,12 +93,11 @@ function AdminGallery() {
               className="h-48 w-auto object-cover mt-4"
             />
             <Button
-              onClick={() =>
-                handleUpload(new File([previewImage], "image.png"))
-              }
+              disabled={isUploading}
+              onClick={handleUpload}
               className="mt-2"
             >
-              Upload Image
+              {isUploading ? "Uploading..." : "Upload Image"}
             </Button>
           </div>
         )}
@@ -99,8 +109,8 @@ function AdminGallery() {
         <p className="text-gray-500">No images in the gallery.</p>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {images?.map((image: any) => (
-          <div className="relative" key={image._id}>
+        {images?.map((image: any, index: number) => (
+          <div className="relative" key={index}>
             <Button
               variant="destructive"
               onClick={() => deleteImage(image._id)}

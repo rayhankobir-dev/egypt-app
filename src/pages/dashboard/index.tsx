@@ -1,21 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Spinner from "@/components/spinner";
+import { Suspense } from "react";
 import useGet from "@/hooks/use-get";
-import AdminSlides from "@/sections/admin-slides";
+import Spinner from "@/components/spinner";
 import HomeHistory from "@/sections/history";
+import AdminSlides from "@/sections/admin-slides";
 
 export default function Dashboard() {
-  const { data: homeData, isLoading } = useGet<any>("/home");
-
-  if (isLoading) return <Spinner />;
+  const {
+    data: homeData,
+    isLoading,
+    refetch: refetchHome,
+  } = useGet<any>("/home/admin");
 
   const { home } = homeData?.data || {};
+
   return (
-    <>
-      <div className="py-2">
-        <AdminSlides slides={home.slides} />
-        <HomeHistory historyData={home.history} />
-      </div>
-    </>
+    <div className="w-full py-2">
+      <Suspense fallback={<Spinner />}>
+        {isLoading ? (
+          <Spinner className="text-green-600" />
+        ) : (
+          <>
+            <AdminSlides refetch={refetchHome} slides={home.slides} />
+            <HomeHistory historyData={home.history} />
+          </>
+        )}
+      </Suspense>
+    </div>
   );
 }

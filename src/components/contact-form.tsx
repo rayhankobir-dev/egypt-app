@@ -50,12 +50,12 @@ function ContactForm({ className }: { className?: string }) {
     validationSchema,
     validateOnBlur: true,
     onSubmit: async (values, { resetForm, setErrors }) => {
-      await postData(values);
+      await postData(values, false);
 
       if (isError) {
         setErrors(formatErrorObject(error));
       } else {
-        toast.success(data.data.message);
+        toast.success(data.message);
         resetForm();
         setCaptchaValue(null);
         console.log(captchaValue);

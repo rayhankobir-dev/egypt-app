@@ -35,7 +35,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSlider slides={home.slides} />
-      <ContentSection title="History of Egypt" content={home.history} />
+      <ContentSection content={home.history} />
       <CityCardSlider
         className="mt-20"
         title="Top Cities"

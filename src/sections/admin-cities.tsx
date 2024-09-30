@@ -91,8 +91,8 @@ export default function AdminCities() {
 
   return (
     <section className="flex flex-col">
-      <SectionTitle title="Cities" description="All cities" />
-      <div className="flex justify-end mb-5">
+      <div className="flex justify-between items-end mb-5">
+        <SectionTitle title="Cities" description="All cities" />
         <Button className="h-9 w-fit bg-green-700 hover:bg-green-600">
           <Link to="/admin/cities/add" className="flex items-center gap-1.5">
             <Plus size={18} /> Add new

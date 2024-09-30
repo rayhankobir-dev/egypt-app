@@ -41,8 +41,8 @@ export default function HomeHistory({
   };
 
   return (
-    <div className="py-2">
-      <h2 className="font-medium text-lg text-gray-700 mb-2">History</h2>
+    <div className="py-5">
+      <h2 className="font-semibold text-lg text-gray-700 mb-2">Content</h2>
       <RichTextEditor
         initialHtmlString={history}
         onChange={(htmlString) => setHistory(htmlString)}
