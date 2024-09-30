@@ -114,14 +114,14 @@ function AdminGallery() {
             <Button
               variant="destructive"
               onClick={() => deleteImage(image._id)}
-              className="absolute right-2 top-2"
+              className="absolute right-2 top-2 w-8 h-8 p-1"
             >
-              <Trash2 />
+              <Trash2 size={18} />
             </Button>
             <img
               src={API_URL + image.imageUrl}
               alt="Uploaded"
-              className="w-full h-auto object-cover"
+              className="w-full h-auto aspect-[16/10] object-cover rounded-lg"
             />
           </div>
         ))}

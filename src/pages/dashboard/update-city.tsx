@@ -2,7 +2,7 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import useGet from "@/hooks/use-get";
-import usePost from "@/hooks/use-post";
+import usePut from "@/hooks/use-update";
 import Spinner from "@/components/spinner";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { formatErrorObject } from "@/lib/utils";
 import SectionTitle from "@/components/section-title";
 import RichTextEditor from "@/components/richtext-editor";
+import toast from "react-hot-toast";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("City name is required"),
@@ -24,11 +25,11 @@ const UpdateCity = () => {
   const [image, setImage] = useState<File | null>(null);
   const { data: cityData, isLoading, isError } = useGet<any>(`/cities/${slug}`);
   const {
-    postData,
+    putData,
     isLoading: isSubmitting,
     isError: isPostError,
     error,
-  } = usePost<any>(`/cities/${slug}`);
+  } = usePut<any>(`/cities/${slug}`);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -49,10 +50,13 @@ const UpdateCity = () => {
         formData.append("thumbnail", image);
       }
 
-      await postData(formData, true);
+      await putData(formData, true);
 
       if (isPostError) {
         setErrors(formatErrorObject(error));
+        toast.error("Failed to update city. Please try again.");
+      } else {
+        toast.success("City updated successfully");
       }
     },
   });

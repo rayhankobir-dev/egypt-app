@@ -18,7 +18,8 @@ export default function CitySinglePage() {
   return (
     <>
       <Helmet>
-        <title>City | World Egypt</title>
+        <title>{data?.data.city.name} | World Egypt</title>
+        <meta name="description" content={data?.data.city.description} />
       </Helmet>
       <CityView city={data?.data.city} />
     </>
