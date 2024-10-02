@@ -6,7 +6,7 @@ import "swiper/css/effect-fade";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Navigation, Pagination, EffectFade } from "swiper/modules";
-import { API_URL } from "@/api";
+
 import { Skeleton } from "./ui/skeleton";
 
 interface HeroSliderProps {

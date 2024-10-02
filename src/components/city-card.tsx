@@ -1,6 +1,6 @@
 import { City } from "@/types";
 import { Map } from "lucide-react";
-import { API_URL } from "@/api";
+
 import { Link } from "react-router-dom";
 import { Skeleton } from "./ui/skeleton";
 

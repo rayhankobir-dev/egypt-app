@@ -1,4 +1,3 @@
-import { API_URL } from "@/api";
 import { GalleryImage } from "@/types";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { API_URL } from "@/api";
+
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { Plus, Trash2 } from "lucide-react";

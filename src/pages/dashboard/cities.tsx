@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { API_URL } from "@/api";
+
 import { format } from "date-fns";
 import toast from "react-hot-toast";
 import useGet from "@/hooks/use-get";

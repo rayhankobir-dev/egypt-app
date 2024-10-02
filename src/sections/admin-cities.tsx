@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { API_URL } from "@/api";
+
 import { format } from "date-fns";
 import useGet from "@/hooks/use-get";
 import { Link } from "react-router-dom";

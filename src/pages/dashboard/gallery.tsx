@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Image, Trash2 } from "lucide-react";
-import useGet from "@/hooks/use-get";
-import axiosInstance, { API_URL } from "@/api";
-import usePost from "@/hooks/use-post";
+import axiosInstance from "@/api";
 import toast from "react-hot-toast";
+import useGet from "@/hooks/use-get";
+import usePost from "@/hooks/use-post";
 import Spinner from "@/components/spinner";
+import { useState, useEffect } from "react";
+import { Image, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 function AdminGallery() {
   const [images, setImages] = useState<any[]>([]);

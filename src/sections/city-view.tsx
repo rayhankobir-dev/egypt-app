@@ -1,7 +1,7 @@
 import { City } from "@/types";
 import { Map } from "lucide-react";
 import ContentSection from "@/components/content-section";
-import { API_URL } from "@/api";
+
 import { Skeleton } from "@/components/ui/skeleton";
 
 function CityView({ city }: { city: City }) {
