@@ -119,7 +119,7 @@ function AdminGallery() {
               <Trash2 size={18} />
             </Button>
             <img
-              src={API_URL + image.imageUrl}
+              src={image.imageUrl}
               alt="Uploaded"
               className="w-full h-auto aspect-[16/10] object-cover rounded-lg"
             />

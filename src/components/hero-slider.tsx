@@ -45,7 +45,7 @@ export default function HeroSlider({ className, slides }: HeroSliderProps) {
             >
               <img
                 className="w-full min-h-96 aspect-[9/7] md:aspect-[16/9] lg:aspect-[16/7] object-cover"
-                src={API_URL + imageUrl}
+                src={imageUrl}
                 width={1000}
                 height={600}
                 alt={title}

@@ -10,7 +10,7 @@ function CityView({ city }: { city: City }) {
       <div className="w-full flex">
         <img
           className="w-full aspect-[9/7] md:aspect-[16/9] lg:aspect-[16/6] object-top object-cover rounded-xl overflow-hidden"
-          src={API_URL + city.thumbnail}
+          src={city.thumbnail}
           height={1024}
           width={1024}
           alt={city.name}

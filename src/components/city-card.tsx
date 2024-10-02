@@ -12,7 +12,7 @@ export default function CityCard({ city }: { city: City }) {
     >
       <img
         className="w-full rounded-lg aspect-[16/10] object-cover"
-        src={API_URL + city.thumbnail}
+        src={city.thumbnail}
         width={300}
         height={300}
         alt={city.name}

@@ -11,7 +11,7 @@ export default function Gallery({ images }: { images: GalleryImage[] }) {
           <img
             className="p-1 rounded-xl aspect-[16/10] object-cover"
             key={index}
-            src={API_URL + imageUrl}
+            src={imageUrl}
             height={1024}
             width={1024}
             alt="City"

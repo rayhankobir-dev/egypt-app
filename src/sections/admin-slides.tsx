@@ -36,7 +36,7 @@ export default function AdminSlides({ slides, refetch }: any) {
       cell: ({ row }: any) => (
         <div className="line-clamp-2">
           <img
-            src={API_URL + row.getValue("imageUrl")}
+            src={row.getValue("imageUrl")}
             className="h-10 w-auto aspect-[16/7]"
           />
         </div>

@@ -39,7 +39,7 @@ export default function AdminCities() {
       cell: ({ row }: any) => (
         <div className="line-clamp-2">
           <img
-            src={API_URL + row.getValue("thumbnail")}
+            src={row.getValue("thumbnail")}
             className="h-10 w-auto aspect-[16/7]"
           />
         </div>
